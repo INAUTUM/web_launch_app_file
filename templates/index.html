@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Queue Runner</title>
+</head>
+<body>
+    <h1>Запуск C++ и Python файлов</h1>
+    
+    <h2>Добавить файл</h2>
+    <form action="/add_task" method="post" enctype="multipart/form-data">
+        <label for="language">Язык:</label>
+        <select name="language" id="language">
+            <option value="python">Python</option>
+            <option value="cpp">C++</option>
+        </select>
+        <br>
+        <label for="file">Выберите файл:</label>
+        <input type="file" name="file" id="file" required>
+        <br>
+        <button type="submit">Добавить задачу</button>
+    </form>
+
+    <h2>Список задач</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <strong>{{ task.language }}</strong>: {{ task.filename }}
+            <form action="/delete_task/{{ task.id }}" method="post" style="display:inline;">
+                <button type="submit">Удалить</button>
+            </form>
+            <form action="/run_task/{{ task.id }}" method="post" style="display:inline;">
+                <button type="submit">Запустить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
